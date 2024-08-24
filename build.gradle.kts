@@ -2,4 +2,17 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    alias(libs.plugins.detekt) apply true
+}
+
+detekt {
+    toolVersion = libs.versions.detekt.toString()
+    config.setFrom(file("config/detekt/detekt.yml"))
+    autoCorrect = true
+    buildUponDefaultConfig = true
+
+}
+
+dependencies {
+    detektPlugins(libs.detektFormatting)
 }

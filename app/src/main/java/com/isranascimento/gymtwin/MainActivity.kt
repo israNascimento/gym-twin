@@ -13,8 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.isranascimento.gymtwin.ui.theme.GymtwinTheme
 
 class MainActivity : ComponentActivity() {
+
+    val a = "1"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        "teste"
         setContent {
             GymtwinTheme {
                 // A surface container using the 'background' color from the theme
@@ -29,8 +32,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-            text = "Hello $name!",
-            modifier = modifier
+        text = "Hello $name!",
+        modifier = modifier
     )
 }
 

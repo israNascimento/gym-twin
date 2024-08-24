@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "gymtwin"
 include(":app")
+include(":dataprovider")

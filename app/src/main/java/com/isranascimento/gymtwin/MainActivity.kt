@@ -14,15 +14,13 @@ import com.isranascimento.gymtwin.ui.theme.GymtwinTheme
 
 class MainActivity : ComponentActivity() {
 
-    val a = "1"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        "teste"
         setContent {
             GymtwinTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
+                    Greeting("Teste")
                 }
             }
         }
@@ -41,6 +39,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     GymtwinTheme {
-        Greeting("Android")
+        Greeting("limonada")
     }
 }

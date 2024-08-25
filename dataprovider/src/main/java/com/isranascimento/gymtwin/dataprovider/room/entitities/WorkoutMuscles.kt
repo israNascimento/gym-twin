@@ -10,6 +10,11 @@ import androidx.room.ForeignKey
             Muscle::class,
             ["name"],
             ["muscle"]
+        ),
+        ForeignKey(
+            Workout::class,
+            ["id"],
+            ["idWorkout"]
         )
     ]
 )

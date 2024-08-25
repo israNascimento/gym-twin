@@ -17,5 +17,5 @@ data class Stretching(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val muscle: String,
     val video: String,
-    val annotation: String
+    val annotation: String?
 )

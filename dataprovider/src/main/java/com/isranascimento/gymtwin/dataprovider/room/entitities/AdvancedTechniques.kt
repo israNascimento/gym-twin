@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class AdvancedTechniques(
     @PrimaryKey val name: String,
     val video: String,
-    val annotation: String
+    val annotation: String?
 )

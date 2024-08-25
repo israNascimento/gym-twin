@@ -4,21 +4,21 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 
 @Entity(
-    primaryKeys = ["idExercise", "idExerciseSubstitute"],
+    primaryKeys = ["nameExercise", "nameExerciseSubstitute"],
     foreignKeys = [
         ForeignKey(
             Exercise::class,
-            parentColumns = ["id"],
-            childColumns = ["idExercise"]
+            parentColumns = ["name"],
+            childColumns = ["nameExercise"]
         ),
         ForeignKey(
             Exercise::class,
-            parentColumns = ["id"],
-            childColumns = ["idExerciseSubstitute"]
+            parentColumns = ["name"],
+            childColumns = ["nameExerciseSubstitute"]
         ),
     ]
 )
 data class Substitution(
-    val idExercise: Int,
-    val idExerciseSubstitute: Int
+    val nameExercise: String,
+    val nameExerciseSubstitute: String
 )

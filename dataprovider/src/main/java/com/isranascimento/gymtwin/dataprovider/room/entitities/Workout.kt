@@ -9,8 +9,8 @@ data class Workout(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val identifier: Char,
-    val date: Long,
-    val hasPreWorkout: Boolean,
-    val focus: String,
+    val date: Long?,
+    val hasPreWorkout: Boolean?,
+    val focus: String?,
     val aerobic: String
 )

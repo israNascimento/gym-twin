@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3fafe0a9301094411f9345bb1a381ba4",
+    "identityHash": "82485ddb88b68b0a0df1524b18d8d01e",
     "entities": [
       {
         "tableName": "AdvancedTechniques",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `video` TEXT NOT NULL, `annotation` TEXT NOT NULL, PRIMARY KEY(`name`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `video` TEXT NOT NULL, `annotation` TEXT, PRIMARY KEY(`name`))",
         "fields": [
           {
             "fieldPath": "name",
@@ -24,7 +24,7 @@
             "fieldPath": "annotation",
             "columnName": "annotation",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -38,14 +38,8 @@
       },
       {
         "tableName": "Exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `video` TEXT NOT NULL, `annotations` TEXT NOT NULL, `muscle` TEXT NOT NULL, FOREIGN KEY(`muscle`) REFERENCES `Muscle`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `video` TEXT NOT NULL, `annotations` TEXT, `muscle` TEXT NOT NULL, PRIMARY KEY(`name`), FOREIGN KEY(`muscle`) REFERENCES `Muscle`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "name",
             "columnName": "name",
@@ -62,7 +56,7 @@
             "fieldPath": "annotations",
             "columnName": "annotations",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "muscle",
@@ -72,9 +66,9 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": true,
+          "autoGenerate": false,
           "columnNames": [
-            "id"
+            "name"
           ]
         },
         "indices": [],
@@ -114,7 +108,7 @@
       },
       {
         "tableName": "Stretching",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `muscle` TEXT NOT NULL, `video` TEXT NOT NULL, `annotation` TEXT NOT NULL, FOREIGN KEY(`muscle`) REFERENCES `Muscle`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `muscle` TEXT NOT NULL, `video` TEXT NOT NULL, `annotation` TEXT, FOREIGN KEY(`muscle`) REFERENCES `Muscle`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -138,7 +132,7 @@
             "fieldPath": "annotation",
             "columnName": "annotation",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -164,26 +158,26 @@
       },
       {
         "tableName": "Substitution",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idExercise` INTEGER NOT NULL, `idExerciseSubstitute` INTEGER NOT NULL, PRIMARY KEY(`idExercise`, `idExerciseSubstitute`), FOREIGN KEY(`idExercise`) REFERENCES `Exercise`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`idExerciseSubstitute`) REFERENCES `Exercise`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nameExercise` TEXT NOT NULL, `nameExerciseSubstitute` TEXT NOT NULL, PRIMARY KEY(`nameExercise`, `nameExerciseSubstitute`), FOREIGN KEY(`nameExercise`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`nameExerciseSubstitute`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
-            "fieldPath": "idExercise",
-            "columnName": "idExercise",
-            "affinity": "INTEGER",
+            "fieldPath": "nameExercise",
+            "columnName": "nameExercise",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "idExerciseSubstitute",
-            "columnName": "idExerciseSubstitute",
-            "affinity": "INTEGER",
+            "fieldPath": "nameExerciseSubstitute",
+            "columnName": "nameExerciseSubstitute",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "idExercise",
-            "idExerciseSubstitute"
+            "nameExercise",
+            "nameExerciseSubstitute"
           ]
         },
         "indices": [],
@@ -193,10 +187,10 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "idExercise"
+              "nameExercise"
             ],
             "referencedColumns": [
-              "id"
+              "name"
             ]
           },
           {
@@ -204,22 +198,22 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "idExerciseSubstitute"
+              "nameExerciseSubstitute"
             ],
             "referencedColumns": [
-              "id"
+              "name"
             ]
           }
         ]
       },
       {
         "tableName": "WeightHistoric",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`exerciseId` INTEGER NOT NULL, `trainingId` INTEGER NOT NULL, `date` INTEGER NOT NULL, `weight` TEXT NOT NULL, `substitutionId` INTEGER, `annotations` TEXT, PRIMARY KEY(`exerciseId`, `trainingId`, `date`), FOREIGN KEY(`exerciseId`) REFERENCES `Exercise`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`substitutionId`) REFERENCES `Exercise`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`exerciseName` TEXT NOT NULL, `trainingId` INTEGER NOT NULL, `date` INTEGER NOT NULL, `weight` TEXT NOT NULL, `substitutionName` TEXT, `annotations` TEXT, PRIMARY KEY(`exerciseName`, `trainingId`, `date`), FOREIGN KEY(`exerciseName`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`substitutionName`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
-            "fieldPath": "exerciseId",
-            "columnName": "exerciseId",
-            "affinity": "INTEGER",
+            "fieldPath": "exerciseName",
+            "columnName": "exerciseName",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -241,9 +235,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "substitutionId",
-            "columnName": "substitutionId",
-            "affinity": "INTEGER",
+            "fieldPath": "substitutionName",
+            "columnName": "substitutionName",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -256,7 +250,7 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "exerciseId",
+            "exerciseName",
             "trainingId",
             "date"
           ]
@@ -268,10 +262,10 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "exerciseId"
+              "exerciseName"
             ],
             "referencedColumns": [
-              "id"
+              "name"
             ]
           },
           {
@@ -279,17 +273,17 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "substitutionId"
+              "substitutionName"
             ],
             "referencedColumns": [
-              "id"
+              "name"
             ]
           }
         ]
       },
       {
         "tableName": "Workout",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `identifier` INTEGER NOT NULL, `date` INTEGER NOT NULL, `hasPreWorkout` INTEGER NOT NULL, `focus` TEXT NOT NULL, `aerobic` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `identifier` INTEGER NOT NULL, `date` INTEGER, `hasPreWorkout` INTEGER, `focus` TEXT, `aerobic` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -307,19 +301,19 @@
             "fieldPath": "date",
             "columnName": "date",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "hasPreWorkout",
             "columnName": "hasPreWorkout",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "focus",
             "columnName": "focus",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "aerobic",
@@ -339,7 +333,7 @@
       },
       {
         "tableName": "WorkoutExercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `idWorkout` INTEGER NOT NULL, `idExercise` INTEGER NOT NULL, `series` TEXT NOT NULL, `advancedTechniqueName` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`idWorkout`) REFERENCES `Workout`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`idExercise`) REFERENCES `Exercise`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`advancedTechniqueName`) REFERENCES `AdvancedTechniques`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `idWorkout` INTEGER NOT NULL, `exerciseName` TEXT NOT NULL, `series` TEXT NOT NULL, `advancedTechniqueName` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`idWorkout`) REFERENCES `Workout`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`exerciseName`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`advancedTechniqueName`) REFERENCES `AdvancedTechniques`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -354,9 +348,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "idExercise",
-            "columnName": "idExercise",
-            "affinity": "INTEGER",
+            "fieldPath": "exerciseName",
+            "columnName": "exerciseName",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -369,7 +363,7 @@
             "fieldPath": "advancedTechniqueName",
             "columnName": "advancedTechniqueName",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -396,10 +390,10 @@
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
-              "idExercise"
+              "exerciseName"
             ],
             "referencedColumns": [
-              "id"
+              "name"
             ]
           },
           {
@@ -417,7 +411,7 @@
       },
       {
         "tableName": "WorkoutMuscles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idWorkout` INTEGER NOT NULL, `muscle` TEXT NOT NULL, PRIMARY KEY(`idWorkout`, `muscle`), FOREIGN KEY(`muscle`) REFERENCES `Muscle`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idWorkout` INTEGER NOT NULL, `muscle` TEXT NOT NULL, PRIMARY KEY(`idWorkout`, `muscle`), FOREIGN KEY(`muscle`) REFERENCES `Muscle`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`idWorkout`) REFERENCES `Workout`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "idWorkout",
@@ -450,6 +444,17 @@
             ],
             "referencedColumns": [
               "name"
+            ]
+          },
+          {
+            "table": "Workout",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idWorkout"
+            ],
+            "referencedColumns": [
+              "id"
             ]
           }
         ]
@@ -497,7 +502,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3fafe0a9301094411f9345bb1a381ba4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '82485ddb88b68b0a0df1524b18d8d01e')"
     ]
   }
 }

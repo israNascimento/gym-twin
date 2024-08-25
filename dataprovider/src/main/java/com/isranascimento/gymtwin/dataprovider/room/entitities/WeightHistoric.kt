@@ -8,22 +8,22 @@ import java.util.Date
     foreignKeys = [
         ForeignKey(
             entity = Exercise::class,
-            parentColumns = ["id"],
-            childColumns = ["exerciseId"]
+            parentColumns = ["name"],
+            childColumns = ["exerciseName"]
         ),
         ForeignKey(
             entity = Exercise::class,
-            parentColumns = ["id"],
-            childColumns = ["substitutionId"]
+            parentColumns = ["name"],
+            childColumns = ["substitutionName"]
         )
     ],
-    primaryKeys = ["exerciseId", "trainingId", "date"]
+    primaryKeys = ["exerciseName", "trainingId", "date"]
 )
 data class WeightHistoric(
-    val exerciseId: Int,
+    val exerciseName: String,
     val trainingId: Int,
     val date: Long,
     val weight: String,
-    val substitutionId: Int?,
+    val substitutionName: String?,
     val annotations: String?
 )

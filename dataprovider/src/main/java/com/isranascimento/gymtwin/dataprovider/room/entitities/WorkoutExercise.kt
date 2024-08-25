@@ -13,8 +13,8 @@ import androidx.room.PrimaryKey
         ),
         ForeignKey(
             Exercise::class,
-            ["id"],
-            ["idExercise"]
+            ["name"],
+            ["exerciseName"]
         ),
         ForeignKey(
             AdvancedTechniques::class,
@@ -26,7 +26,7 @@ import androidx.room.PrimaryKey
 data class WorkoutExercise(
     @PrimaryKey val id: Int,
     val idWorkout: Int,
-    val idExercise: Int,
-    val series: String,
-    val advancedTechniqueName: String
+    val exerciseName: String,
+    val series: String, // 3x12
+    val advancedTechniqueName: String?
 )

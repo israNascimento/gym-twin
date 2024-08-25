@@ -12,5 +12,6 @@ data class Workout(
     val date: Long?,
     val hasPreWorkout: Boolean?,
     val focus: String?,
-    val aerobic: String
+    val aerobic: String,
+    val interval: String
 )

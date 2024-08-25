@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "82485ddb88b68b0a0df1524b18d8d01e",
+    "identityHash": "46f87d897ea11c0a362245362a34f15d",
     "entities": [
       {
         "tableName": "AdvancedTechniques",
@@ -158,8 +158,14 @@
       },
       {
         "tableName": "Substitution",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nameExercise` TEXT NOT NULL, `nameExerciseSubstitute` TEXT NOT NULL, PRIMARY KEY(`nameExercise`, `nameExerciseSubstitute`), FOREIGN KEY(`nameExercise`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`nameExerciseSubstitute`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nameExercise` TEXT NOT NULL, `nameExerciseSubstitute` TEXT, FOREIGN KEY(`nameExercise`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`nameExerciseSubstitute`) REFERENCES `Exercise`(`name`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "nameExercise",
             "columnName": "nameExercise",
@@ -170,14 +176,13 @@
             "fieldPath": "nameExerciseSubstitute",
             "columnName": "nameExerciseSubstitute",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
-            "nameExercise",
-            "nameExerciseSubstitute"
+            "id"
           ]
         },
         "indices": [],
@@ -283,7 +288,7 @@
       },
       {
         "tableName": "Workout",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `identifier` INTEGER NOT NULL, `date` INTEGER, `hasPreWorkout` INTEGER, `focus` TEXT, `aerobic` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `identifier` INTEGER NOT NULL, `date` INTEGER, `hasPreWorkout` INTEGER, `focus` TEXT, `aerobic` TEXT NOT NULL, `interval` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -318,6 +323,12 @@
           {
             "fieldPath": "aerobic",
             "columnName": "aerobic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "interval",
+            "columnName": "interval",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -502,7 +513,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '82485ddb88b68b0a0df1524b18d8d01e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '46f87d897ea11c0a362245362a34f15d')"
     ]
   }
 }
